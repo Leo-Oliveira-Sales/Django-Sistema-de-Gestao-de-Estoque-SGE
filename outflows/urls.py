@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path("outflows/list", views.OutflowListView.as_view(), name="Outflow_list"),
     path("outflows/create", views.OutflowCreateView.as_view(), name="Outflow_create"),
-    path("outflows/<Out:pk>/detail", views.OutflowDetailView.as_view(), name="Outflow_detail"),
+    path("outflows/<int:pk>/detail", views.OutflowDetailView.as_view(), name="Outflow_detail"),
 ]
