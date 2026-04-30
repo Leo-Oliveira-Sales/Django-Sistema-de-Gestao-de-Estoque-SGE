@@ -8,23 +8,15 @@ SGE - Marcas
 
 <div class="row mb-3">
   <div class="col-md-6">
-
-    <!-- FILTRO JS -->
-    <div class="input-group mb-3">
-      <input 
-        type="text" 
-        id="search" 
-        class="form-control" 
-        placeholder="Filtrar marcas na tela..."
-        onkeyup="filterTable()"
-      >
-      <button class="btn btn-primary" type="button">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-
+    <form method="get" action="{% url 'brand_list' %}">
+      <div class="input-group">
+        <input type="text" class="form-control" name="name" placeholder="Nome" value="{{ request.GET.name }}">
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </form>
   </div>
-
   {% if perms.brands.add_brand %}
   <div class="col-md-6">
     <a href="{% url 'brand_create' %}" class="btn btn-success float-end">
@@ -44,10 +36,7 @@ SGE - Marcas
         <th>Ações</th>
       </tr>
     </thead>
-
-    <!-- ID necessário para o JS localizar a tabela -->
-    <tbody id="brand-table">
-
+    <tbody>
       {% for brand in brands %}
       <tr>
         <td>
@@ -55,12 +44,8 @@ SGE - Marcas
             {{ brand.id }}
           </a>
         </td>
-
-        <!-- classe usada pelo JS no filtro -->
-        <td class="brand-name">{{ brand.name }}</td>
-
+        <td>{{ brand.name }}</td>
         <td>{{ brand.description }}</td>
-
         <td>
           <a href="{% url 'brand_detail' brand.id %}" class="btn btn-info btn-sm">
             <i class="bi bi-eye"></i>
@@ -80,29 +65,10 @@ SGE - Marcas
         </td>
       </tr>
       {% endfor %}
-
     </tbody>
   </table>
 </div>
 
 {% include 'components/_pagination.html' %}
-
-<!-- FILTRO JAVASCRIPT (frontend) -->
-<script>
-function filterTable() {
-    let input = document.getElementById("search").value.toLowerCase();
-    let rows = document.querySelectorAll("#brand-table tr");
-
-    rows.forEach(row => {
-        let name = row.querySelector(".brand-name").textContent.toLowerCase();
-
-        if (name.includes(input)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
-    });
-}
-</script>
 
 {% endblock %}

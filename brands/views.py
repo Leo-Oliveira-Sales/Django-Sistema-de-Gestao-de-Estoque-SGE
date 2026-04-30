@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from . import models, forms
@@ -7,6 +9,15 @@ class BrandListView(ListView):
     model = models.Brand
     template_name = "brand_list.html"
     context_object_name = "brands"
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        name = self.request.GET.get("name")
+
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+        return queryset
 
 class BrandCreateView(CreateView):
     model = models.Brand
@@ -30,34 +41,21 @@ class BrandDeleteView(DeleteView):
     success_url = reverse_lazy("brand_list")
 
 
-# Filtro feito no frontend com js. Também pode ser feito com AJAX / API (mais moderno)
+# Filtro pode ser feito no frontend com js. Também pode ser feito com js AJAX / API (mais moderno)
 
-#  Pode ser feito dessa forma no django:
-# from typing import Any
-# from django.db.models.query import QuerySet
-# from django.views.generic import ListView
-# from . import models
+# Outra maneira de fazer é com django_filters:
 
-# def get_queryset(self):
-#     queryset = super().get_queryset()
-#     name = self.request.GET.get("name")
-
-#     if name:
-#         queryset = queryset.filter(name__icontains=name)
-#     return queryset
-
-# Outra maneira de fazer é com django_filters
 # import django_filters
 # from django_filters.views import FilterView
 # from .models import Brand
-
+#
 # class BrandFilter(django_filters.FilterSet):
 #     name = django_filters.CharFilter(lookup_expr='icontains')
-
+#
 #     class Meta:
 #         model = Brand
 #         fields = ['name']
-
+#
 # class BrandListView(FilterView):
 #     model = Brand
 #     template_name = "brand_list.html"
