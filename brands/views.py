@@ -1,9 +1,10 @@
 # from typing import Any
 # from django.db.models.query import QuerySet
+from rest_framework import generics
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from . import models, forms
+from . import models, forms, serializers
 
 
 class BrandListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -51,23 +52,17 @@ class BrandDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy("brand_list")
 
 
-# Filtro pode ser feito no frontend com js. Também pode ser feito com js AJAX / API (mais moderno)
+# API
+class BrandCreateListAPIView(generics.ListCreateAPIView):
+    queryset = models.Brand.objects.all()
+    serializer_class = serializers.BrandSerializer
+
+
+class BrandRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Brand.objects.all()
+    serializer_class = serializers.BrandSerializer
+
+
+# O Filtro pode ser feito no frontend com js. Também pode ser feito com js AJAX / API (mais moderno)
 
 # Outra maneira de fazer é com django_filters:
-
-# import django_filters
-# from django_filters.views import FilterView
-# from .models import Brand
-#
-# class BrandFilter(django_filters.FilterSet):
-#     name = django_filters.CharFilter(lookup_expr='icontains')
-#
-#     class Meta:
-#         model = Brand
-#         fields = ['name']
-#
-# class BrandListView(FilterView):
-#     model = Brand
-#     template_name = "brand_list.html"
-#     context_object_name = "brands"
-#     filterset_class = BrandFilter
