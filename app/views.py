@@ -1,7 +1,7 @@
 import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from ai.models import AIResult
+# from ai.models import AIResult
 from . import metrics
 
 

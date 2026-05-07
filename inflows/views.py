@@ -1,11 +1,12 @@
-from typing import Any
-from django.db.models.query import QuerySet
+# from typing import Any
+# from django.db.models.query import QuerySet
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from . import models, forms
 
 
-class InflowListView(ListView):
+class InflowListView(LoginRequiredMixin, ListView):
     model = models.Inflow
     template_name = "Inflow_list.html"
     context_object_name = "Inflows"
@@ -19,12 +20,12 @@ class InflowListView(ListView):
             queryset = queryset.filter(product__title__icontains=product)
         return queryset
 
-class InflowCreateView(CreateView):
+class InflowCreateView(LoginRequiredMixin, CreateView):
     model = models.Inflow
     template_name = "Inflow_create.html"
     form_class = forms.InflowForm
     success_url = reverse_lazy("Inflow_list")
 
-class InflowDetailView(DetailView):
+class InflowDetailView(LoginRequiredMixin, DetailView):
     model = models.Inflow
     template_name = "Inflow_detail.html"

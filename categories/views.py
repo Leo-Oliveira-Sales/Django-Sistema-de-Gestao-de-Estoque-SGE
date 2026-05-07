@@ -1,11 +1,12 @@
-from typing import Any
-from django.db.models.query import QuerySet
+# from typing import Any
+# from django.db.models.query import QuerySet
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from . import models, forms
 
 
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     model = models.Category
     template_name = "Category_list.html"
     context_object_name = "Categories"
@@ -19,23 +20,23 @@ class CategoryListView(ListView):
             queryset = queryset.filter(name__icontains=name)
         return queryset
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = models.Category
     template_name = "Category_create.html"
     form_class = forms.CategoryForm
     success_url = reverse_lazy("Category_list")
 
-class CategoryDetailView(DetailView):
+class CategoryDetailView(LoginRequiredMixin, DetailView):
     model = models.Category
     template_name = "Category_detail.html"
 
-class CategoryUpdateView(UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = models.Category
     template_name = "Category_update.html"
     form_class = forms.CategoryForm
     success_url = reverse_lazy("Category_list")
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = models.Category
     template_name = "Category_delete.html"
     success_url = reverse_lazy("Category_list")
