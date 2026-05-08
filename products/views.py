@@ -29,7 +29,7 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
         if serie_number:
             queryset = queryset.filter(serie_number=serie_number)
-    
+
         if category:
             queryset = queryset.filter(category__id=category)
 
