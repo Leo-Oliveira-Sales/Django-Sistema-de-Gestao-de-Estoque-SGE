@@ -1,7 +1,6 @@
 import json
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-# from ai.models import AIResult
 from . import metrics
 
 
@@ -13,8 +12,6 @@ def home(request):
     graphic_product_brand_metric = metrics.get_graphic_product_brand_metric()
     daily_sales_data = metrics.get_daily_sales_data()
     daily_sales_quantity_data = metrics.get_daily_sales_quantity_data()
-    ai_result = AIResult.objects.first()
-    ai_result = ai_result.result if ai_result else ''
 
     context = {
         'product_metrics': product_metrics,
@@ -22,8 +19,7 @@ def home(request):
         'product_count_by_category': json.dumps(graphic_product_category_metric),
         'product_count_by_brand': json.dumps(graphic_product_brand_metric),
         'daily_sales_data': json.dumps(daily_sales_data),
-        'daily_sales_quantity_data': json.dumps(daily_sales_quantity_data),
-        'ai_result': ai_result,
+        'daily_sales_quantity_data': json.dumps(daily_sales_quantity_data)
     }
 
     return render(request, 'home.html', context)
