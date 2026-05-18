@@ -10,7 +10,7 @@ from . import models, forms, serializers
 
 class OutflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = models.Outflow
-    template_name = "Outflow_list.html"
+    template_name = "outflow_list.html"
     context_object_name = "Outflows"
     paginate_by = 10
     permission_required = 'outflows.view_outflow'
@@ -31,15 +31,15 @@ class OutflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class OutflowCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Outflow
-    template_name = "Outflow_create.html"
+    template_name = "outflow_create.html"
     form_class = forms.OutflowForm
-    success_url = reverse_lazy("Outflow_list")
+    success_url = reverse_lazy("outflow_list")
     permission_required = 'outflows.add_outflow'
 
 
 class OutflowDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Outflow
-    template_name = "Outflow_detail.html"
+    template_name = "outflow_detail.html"
     permission_required = 'outflows.view_outflow'
 
 

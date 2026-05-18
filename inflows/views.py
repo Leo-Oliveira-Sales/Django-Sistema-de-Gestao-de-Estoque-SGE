@@ -7,7 +7,7 @@ from . import models, forms, serializers
 
 class InflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = models.Inflow
-    template_name = "Inflow_list.html"
+    template_name = "inflow_list.html"
     context_object_name = "Inflows"
     paginate_by = 10
     permission_required = 'inflows.view_inflow'
@@ -23,15 +23,15 @@ class InflowListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class InflowCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Inflow
-    template_name = "Inflow_create.html"
+    template_name = "inflow_create.html"
     form_class = forms.InflowForm
-    success_url = reverse_lazy("Inflow_list")
+    success_url = reverse_lazy("inflow_list")
     permission_required = 'inflows.add_inflow'
 
 
 class InflowDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Inflow
-    template_name = "Inflow_detail.html"
+    template_name = "inflow_detail.html"
     permission_required = 'inflows.view_inflow'
 
 

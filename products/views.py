@@ -12,7 +12,7 @@ from brands.models import Brand
 
 class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = models.Product
-    template_name = "Product_list.html"
+    template_name = "product_list.html"
     context_object_name = "Products"
     paginate_by = 10
     permission_required = 'products.view_product'
@@ -48,30 +48,30 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Product
-    template_name = "Product_create.html"
+    template_name = "product_create.html"
     form_class = forms.ProductForm
-    success_url = reverse_lazy("Product_list")
+    success_url = reverse_lazy("product_list")
     permission_required = 'products.add_product'
 
 
 class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Product
-    template_name = "Product_detail.html"
+    template_name = "product_detail.html"
     permission_required = 'products.view_product'
 
 
 class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = models.Product
-    template_name = "Product_update.html"
+    template_name = "product_update.html"
     form_class = forms.ProductForm
-    success_url = reverse_lazy("Product_list")
+    success_url = reverse_lazy("product_list")
     permission_required = 'products.change_product'
 
 
 class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = models.Product
-    template_name = "Product_delete.html"
-    success_url = reverse_lazy("Product_list")
+    template_name = "product_delete.html"
+    success_url = reverse_lazy("product_list")
     permission_required = 'products.delete_product'
 
 

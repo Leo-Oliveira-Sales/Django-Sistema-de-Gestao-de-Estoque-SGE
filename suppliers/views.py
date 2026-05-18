@@ -9,7 +9,7 @@ from . import models, forms, serializers
 
 class SupplierListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = models.Supplier
-    template_name = "Supplier_list.html"
+    template_name = "supplier_list.html"
     context_object_name = "Suppliers"
     paginate_by = 10
     permission_required = 'suppliers.view_supplier'
@@ -25,30 +25,30 @@ class SupplierListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class SupplierCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Supplier
-    template_name = "Supplier_create.html"
+    template_name = "supplier_create.html"
     form_class = forms.SupplierForm
-    success_url = reverse_lazy("Supplier_list")
+    success_url = reverse_lazy("supplier_list")
     permission_required = 'suppliers.add_supplier'
 
 
 class SupplierDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Supplier
-    template_name = "Supplier_detail.html"
+    template_name = "supplier_detail.html"
     permission_required = 'suppliers.view_supplier'
 
 
 class SupplierUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = models.Supplier
-    template_name = "Supplier_update.html"
+    template_name = "supplier_update.html"
     form_class = forms.SupplierForm
-    success_url = reverse_lazy("Supplier_list")
+    success_url = reverse_lazy("supplier_list")
     permission_required = 'suppliers.change_supplier'
 
 
 class SupplierDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = models.Supplier
-    template_name = "Supplier_delete.html"
-    success_url = reverse_lazy("Supplier_list")
+    template_name = "supplier_delete.html"
+    success_url = reverse_lazy("supplier_list")
     permission_required = 'suppliers.delete_supplier'
 
 
